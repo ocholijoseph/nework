@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A clean, responsive product landing page built with HTML, CSS, and Bootstrap CSS only.">
+  <title>Forma — Everyday essentials, thoughtfully made</title>
+
+  <!-- Bootstrap CSS only: no Bootstrap JavaScript, inline scripts, or injected JavaScript. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #17231f;
+      --muted: #65716b;
+      --paper: #f7f8f4;
+      --green: #246b52;
+      --green-dark: #174c3a;
+      --lime: #d9f27e;
+      --line: #e3e8df;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .navbar { background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
+    .navbar-brand { font-weight: 850; letter-spacing: -.06em; font-size: 1.55rem; }
+    .brand-dot { color: var(--green); }
+    .nav-link { color: #46524c; font-weight: 600; }
+    .nav-link:hover, .nav-link:focus { color: var(--green); }
+    .btn { border-radius: 999px; padding: .78rem 1.25rem; font-weight: 700; }
+    .btn-success { background: var(--green); border-color: var(--green); }
+    .btn-success:hover, .btn-success:focus { background: var(--green-dark); border-color: var(--green-dark); }
+    .btn-outline-dark { border-color: #b9c4bb; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--green); font-size: .78rem; font-weight: 800;
+      letter-spacing: .13em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 1.5rem; height: 2px; background: currentColor; }
+    .hero { background: var(--paper); overflow: hidden; }
+    .hero h1 { max-width: 650px; font-size: clamp(2.8rem, 6vw, 5.4rem); line-height: .99; letter-spacing: -.075em; font-weight: 850; }
+    .hero-copy { max-width: 510px; color: var(--muted); font-size: 1.1rem; }
+    .hero-art {
+      position: relative; min-height: 430px; height: 100%;
+      display: grid; place-items: center;
+      background: #e7eddf; border-radius: 2rem; overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-art::before {
+      content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%;
+      background: #c8ddbd; right: -65px; top: -70px; z-index: -1;
+    }
+    .hero-art::after {
+      content: ""; position: absolute; width: 250px; height: 250px; border-radius: 50%;
+      background: #f0d7a6; left: -70px; bottom: -95px; z-index: -1;
+    }
+    .product-illustration { width: min(75%, 360px); filter: drop-shadow(0 28px 22px rgba(23,35,31,.17)); }
+    .floating-note {
+      position: absolute; left: 1.2rem; bottom: 1.2rem; background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.8); border-radius: 1rem; padding: .8rem 1rem;
+      box-shadow: 0 10px 30px rgba(23,35,31,.08); font-size: .9rem;
+    }
+    .floating-note strong { display: block; }
+    .trust-strip { border-bottom: 1px solid var(--line); color: var(--muted); }
+    .trust-item { font-size: .9rem; font-weight: 650; }
+    .trust-mark { color: var(--green); font-size: 1.1rem; margin-right: .35rem; }
+    section { scroll-margin-top: 84px; }
+    .section-heading { max-width: 650px; }
+    .section-heading h2 { font-size: clamp(2rem, 4vw, 3.35rem); letter-spacing: -.06em; font-weight: 820; line-height: 1.08; }
+    .section-heading p { color: var(--muted); }
+    .product-card {
+      height: 100%; border: 1px solid var(--line); border-radius: 1.35rem; overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 18px 35px rgba(23,35,31,.08); }
+    .product-visual { min-height: 230px; display: grid; place-items: center; background: #f0f3ed; }
+    .product-visual.cream { background: #f4eee4; }
+    .product-visual.blue { background: #e7edf0; }
+    .product-visual svg { width: 150px; height: 150px; }
+    .product-info { padding: 1.3rem; }
+    .product-info h3 { font-size: 1.08rem; font-weight: 800; }
+    .product-info p { color: var(--muted); font-size: .92rem; }
+    .price { font-weight: 850; color: var(--green-dark); }
+    .tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: var(--green); }
+    .story-band { background: var(--green-dark); color: white; border-radius: 2rem; }
+    .story-band p { color: #d0e0d6; }
+    .story-stat { border-left: 1px solid rgba(255,255,255,.25); padding-left: 1.25rem; }
+    .story-stat strong { display: block; font-size: 2rem; line-height: 1.1; letter-spacing: -.05em; }
+    .testimonial-section { background: var(--paper); }
+    .quote-card { background: #fff; border: 1px solid var(--line); border-radius: 1.3rem; padding: 1.5rem; height: 100%; }
+    .stars { color: #b17b19; letter-spacing: .12em; }
+    .quote-card blockquote { font-size: 1.02rem; margin: 1rem 0 1.4rem; }
+    .person { display: flex; align-items: center; gap: .75rem; }
+    .avatar {
+      width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%;
+      color: var(--green-dark); background: var(--lime); font-weight: 850;
+    }
+    .person small { display: block; color: var(--muted); }
+    .cta-panel { background: #edf4e7; border-radius: 2rem; }
+    .cta-panel h2 { font-weight: 850; letter-spacing: -.06em; }
+    footer { background: #13231d; color: #fff; }
+    footer a { text-decoration: none; color: #c9d5cd; }
+    footer a:hover { color: var(--lime); }
+    .footer-muted { color: #aebdb3; }
+    .social-link { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #40544a; width: 40px; height: 40px; border-radius: 50%; }
+    .social-link:hover { border-color: var(--lime); }
+    @media (max-width: 767.98px) {
+      .hero-art { min-height: 340px; }
+      .hero { padding-top: 2rem; }
+      .story-stat { border-left: 0; border-top: 1px solid rgba(255,255,255,.25); padding: 1rem 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation"">
+    <div class="container py-2">
+      <a class="navbar-brand" href="#home" aria-label="Forma home">forma<span class="brand-dot">.</span></a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <div class="d-none d-md-flex align-items-center gap-4 me-2">
+          <a class="nav-link" href="#products">Products</a>
+          <a class="nav-link" href="#story">Our approach</a>
+          <a class="nav-link" href="#reviews">Reviews</a>
+        </div>
+        <a class="btn btn-success btn-sm" href="#products">Explore products <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero py-5" id="home">
+      <div class="container py-lg-4">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <span class="eyebrow mb-4">Thoughtful by design</span>
+            <h1 class="mb-4">Good things.<br>Made to <span style="color:var(--green)">last.</span></h1>
+            <p class="hero-copy mb-4">Meet everyday essentials that bring a little more calm, care, and intention to your routine. Better materials, considered details, no unnecessary fuss.</p>
+            <div class="d-flex flex-wrap gap-3 mb-4">
+              <a class="btn btn-success" href="#products">Shop the collection <span aria-hidden="true">→</span></a>
+              <a class="btn btn-outline-dark" href="#story">Why Forma?</a>
+            </div>
+            <div class="d-flex align-items-center gap-3 small text-secondary">
+              <span aria-hidden="true">★★★★★</span>
+              <span><strong class="text-dark">4.9/5</strong> from happy customers</span>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-art" role="img" aria-label="Illustration of a reusable green everyday bottle">
+              <svg class="product-illustration" viewBox="0 0 360 420" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bottle" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0" stop-color="#225d47"/><stop offset=".48" stop-color="#438366"/><stop offset="1" stop-color="#174936"/>
+                  </linearGradient>
+                  <linearGradient id="cap" x1="0" x2="1"><stop stop-color="#e2edcf"/><stop offset="1" stop-color="#b8cda9"/></linearGradient>
+                </defs>
+                <ellipse cx="180" cy="374" rx="94" ry="17" fill="#1b3d2e" opacity=".12"/>
+                <rect x="143" y="40" width="74" height="62" rx="17" fill="url(#cap)"/>
+                <rect x="151" y="28" width="58" height="30" rx="9" fill="#dce8cb"/>
+                <rect x="119" y="83" width="122" height="270" rx="39" fill="url(#bottle)"/>
+                <rect x="132" y="102" width="17" height="222" rx="8" fill="#8db39a" opacity=".28"/>
+                <rect x="139" y="170" width="82" height="92" rx="14" fill="#f2f4e8"/>
+                <text x="180" y="204" text-anchor="middle" font-size="14" font-weight="800" fill="#246b52" letter-spacing="2">FORMA</text>
+                <path d="M154 220 Q180 202 206 220" stroke="#246b52" stroke-width="2" fill="none"/>
+                <text x="180" y="240" text-anchor="middle" font-size="8" fill="#65716b" letter-spacing="1.5">DAILY GOODS</text>
+                <path d="M239 119 Q252 142 240 165" stroke="#9ec6a9" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/>
+              </svg>
+              <div class="floating-note"><strong>Made for everyday</strong><span class="text-secondary">Simple. Useful. Responsible.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip py-3">
+      <div class="container">
+        <div class="row g-3 text-center">
+          <div class="col-6 col-lg-3 trust-item"><span class="trust-mark">✓</span>Thoughtfully designed</div>
+          <div class="col-6 col-lg-3 trust-item"><span class="trust-mark">✳</span>Quality materials</div>
+          <div class="col-6 col-lg-3 trust-item"><span class="trust-mark">↻</span>Made to be reused</div>
+          <div class="col-6 col-lg-3 trust-item"><span class="trust-mark">♡</span>Customer approved</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="py-5 py-lg-6" id="products">
+      <div class="container py-4">
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+          <div class="section-heading">
+            <span class="eyebrow mb-3">The collection</span>
+            <h2 class="mb-3">Your daily routine,<br>made a little better.</h2>
+            <p class="mb-0">Useful essentials with a clean look and details that make sense.</p>
+          </div>
+          <a class="btn btn-outline-dark flex-shrink-0" href="#contact">Ask about the collection ↗</a>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card">
+              <div class="product-visual">
+                <svg viewBox="0 0 180 180" role="img" aria-label="Green reusable bottle illustration">
+                  <ellipse cx="90" cy="157" rx="44" ry="7" fill="#17231f" opacity=".1"/>
+                  <rect x="72" y="23" width="36" height="27" rx="7" fill="#d4e0c7"/>
+                  <rect x="61" y="43" width="58" height="105" rx="18" fill="#36795b"/>
+                  <rect x="68" y="52" width="8" height="84" rx="4" fill="#91b8a0" opacity=".5"/>
+                  <rect x="70" y="79" width="40" height="32" rx="5" fill="#f3f5eb"/>
+                  <text x="90" y="98" text-anchor="middle" font-size="7" font-weight="800" fill="#246b52">FORMA</text>
+                </svg>
+              </div>
+              <div class="product-info">
+                <div class="d-flex justify-content-between align-items-center mb-2"><span class="tag">Bestseller</span><span class="price">₦18,500</span></div>
+                <h3>Everyday Bottle</h3>
+                <p class="mb-0">A dependable companion for work, workouts, and everything in between.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card">
+              <div class="product-visual cream">
+                <svg viewBox="0 0 180 180" role="img" aria-label="Natural canvas tote bag illustration">
+                  <ellipse cx="90" cy="157" rx="50" ry="7" fill="#17231f" opacity=".1"/>
+                  <path d="M48 66 L132 66 L143 147 Q90 158 37 147 Z" fill="#d8c4a1"/>
+                  <path d="M65 70 V48 Q65 22 90 22 Q115 22 115 48 V70" stroke="#b49a70" stroke-width="8" fill="none" stroke-linecap="round"/>
+                  <path d="M54 82 H126" stroke="#c2aa80" stroke-width="2"/>
+                  <text x="90" y="112" text-anchor="middle" font-size="10" font-weight="800" fill="#53684c" letter-spacing="2">FORMA</text>
+                  <path d="M75 122 Q90 113 105 122" stroke="#53684c" stroke-width="1.5" fill="none"/>
+                </svg>
+              </div>
+              <div class="product-info">
+                <div class="d-flex justify-content-between align-items-center mb-2"><span class="tag">Lightweight</span><span class="price">₦12,000</span></div>
+                <h3>Market Tote</h3>
+                <p class="mb-0">Room for the essentials, with a simple shape you can take anywhere.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="product-card">
+              <div class="product-visual blue">
+                <svg viewBox="0 0 180 180" role="img" aria-label="Minimal ceramic cup illustration">
+                  <ellipse cx="85" cy="151" rx="45" ry="7" fill="#17231f" opacity=".1"/>
+                  <path d="M48 54 H119 L113 133 Q83 145 54 133 Z" fill="#f8f7f0" stroke="#c4d0d3" stroke-width="2"/>
+                  <path d="M118 69 H131 Q153 69 148 93 Q144 111 115 109" fill="none" stroke="#f8f7f0" stroke-width="10"/>
+                  <path d="M118 69 H131 Q153 69 148 93 Q144 111 115 109" fill="none" stroke="#c4d0d3" stroke-width="2"/>
+                  <ellipse cx="84" cy="54" rx="36" ry="7" fill="#e7e7df" stroke="#c4d0d3" stroke-width="2"/>
+                  <text x="84" y="94" text-anchor="middle" font-size="9" font-weight="800" fill="#246b52" letter-spacing="1.5">SLOW</text>
+                  <text x="84" y="106" text-anchor="middle" font-size="7" fill="#65716b" letter-spacing="1">MORNING</text>
+                </svg>
+              </div>
+              <div class="product-info">
+                <div class="d-flex justify-content-between align-items-center mb-2"><span class="tag">Customer favourite</span><span class="price">₦9,500</span></div>
+                <h3>Slow Morning Cup</h3>
+                <p class="mb-0">A comfortable, understated cup for your first sip of the day.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <p class="small text-secondary mt-3 mb-0">Sample product names and prices are placeholders. Replace them with your real catalogue and pricing.</p>
+      </div>
+    </section>
+
+    <section class="py-4 py-lg-5" id="story">
+      <div class="container">
+        <div class="story-band p-4 p-md-5">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <span class="eyebrow mb-3" style="color:var(--lime)">A more considered choice</span>
+              <h2 class="display-5 fw-bold mb-3" style="letter-spacing:-.06em">Less clutter.<br>More of what matters.</h2>
+              <p class="mb-4">We believe everyday products should earn their place. That means useful design, dependable quality, and pieces you’ll be glad to reach for again and again.</p>
+              <a class="btn btn-light" href="#contact">Get to know Forma <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="col-lg-5">
+              <div class="row g-4">
+                <div class="col-6"><div class="story-stat"><strong>01</strong><span class="small">Purposeful design</span></div></div>
+                <div class="col-6"><div class="story-stat"><strong>02</strong><span class="small">Everyday usefulness</span></div></div>
+                <div class="col-6"><div class="story-stat"><strong>03</strong><span class="small">Quality first</span></div></div>
+                <div class="col-6"><div class="story-stat"><strong>04</strong><span class="small">Thoughtful choices</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial-section py-5 py-lg-6" id="reviews">
+      <div class="container py-4">
+        <div class="section-heading text-center mx-auto mb-5">
+          <span class="eyebrow mb-3">Kind words</span>
+          <h2 class="mb-3">Small details.<br>Big everyday difference.</h2>
+          <p class="mb-0">A few words from people who have made Forma part of their routine.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="quote-card">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>“The bottle is simple, sturdy, and looks great on my desk. I use it every single day.”</blockquote>
+              <div class="person"><div class="avatar" aria-hidden="true">AM</div><div><strong>Amara M.</strong><small>Verified customer</small></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="quote-card">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>“I love that everything feels considered without being over-designed. The tote goes everywhere with me.”</blockquote>
+              <div class="person"><div class="avatar" aria-hidden="true" style="background:#e7d7bd">TO</div><div><strong>Tobi O.</strong><small>Verified customer</small></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="quote-card">
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <blockquote>“Beautiful, practical products and a smooth buying experience. I’ll definitely be back.”</blockquote>
+              <div class="person"><div class="avatar" aria-hidden="true" style="background:#d8e6ef">IK</div><div><strong>Ife K.</strong><small>Verified customer</small></div></div>
+            </article>
+          </div>
+        </div>
+        <p class="small text-secondary text-center mt-3 mb-0">Testimonials above are illustrative placeholders. Publish only genuine customer feedback with permission.</p>
+      </div>
+    </section>
+
+    <section class="py-5" id="contact">
+      <div class="container py-3">
+        <div class="cta-panel p-4 p-md-5 text-center">
+          <span class="eyebrow mb-3">Start with the essentials</span>
+          <h2 class="display-6 mb-3">Make room for better everyday.</h2>
+          <p class="text-secondary mx-auto mb-4" style="max-width:540px">Have a question or want help choosing? Reach out and we’ll be happy to help.</p>
+          <a class="btn btn-success" href="mailto:hello@example.com?subject=Hello%20Forma">Contact our team <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 pb-4">
+        <div class="col-lg-5">
+          <a class="navbar-brand text-white" href="#home">forma<span style="color:var(--lime)">.</span></a>
+          <p class="footer-muted mt-3 mb-0" style="max-width:340px">Everyday essentials, thoughtfully made. A little more intention in the things you use every day.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="h6 fw-bold mb-3">Explore</h2>
+          <ul class="list-unstyled d-grid gap-2 small mb-0">
+            <li><a href="#products">Products</a></li><li><a href="#story">Our approach</a></li><li><a href="#reviews">Reviews</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="h6 fw-bold mb-3">Support</h2>
+          <ul class="list-unstyled d-grid gap-2 small mb-0">
+            <li><a href="#contact">Contact</a></li><li><a href="mailto:hello@example.com">Email us</a></li><li><a href="#home">Back to top ↑</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h2 class="h6 fw-bold mb-3">Follow along</h2>
+          <div class="d-flex gap-2">
+            <a class="social-link" href="https://instagram.com/" aria-label="Instagram">ig</a>
+            <a class="social-link" href="https://facebook.com/" aria-label="Facebook">f</a>
+            <a class="social-link" href="https://tiktok.com/" aria-label="TikTok">♪</a>
+          </div>
+        </div>
+      </div>
+      <hr style="border-color:#40544a">
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2 small footer-muted">
+        <span>© 2026 Forma. All rights reserved.</span>
+        <span>Built with semantic HTML, custom CSS, and Bootstrap CSS.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
